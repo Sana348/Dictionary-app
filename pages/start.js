@@ -54,7 +54,7 @@ const Start = () => {
                 className="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 focus:bg-transparent text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               />
             </div>
-            <div className="my-4 flex justify-between ">
+            <div className="my-4 flex justify-between">
               <button
                 onClick={getMeaning}
                 className="text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm"
@@ -62,13 +62,14 @@ const Start = () => {
                 Meaning
               </button>
               {audio && (
-                <div className="w-full">
-                  <audio controls className="mx-auto w-60 h-10">
+                <div className="w-full sm:w-60 md:w-80 mx-auto">
+                  <audio controls className="w-full h-10">
                     <source src={audio} type="audio/ogg" />
                     Your browser doesn't support the audio tag
                   </audio>
                 </div>
               )}
+              
             </div>
           </div>
         </div>
@@ -78,3 +79,6 @@ const Start = () => {
 };
 
 export default Start;
+
+
+
