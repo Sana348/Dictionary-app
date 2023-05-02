@@ -1,19 +1,23 @@
-
 import React, { useState, useEffect } from "react";
 
 const Start = () => {
   const [word, setWord] = useState("Dictionary App");
-  const [meaning, setMeaning] = useState("Welcome to our dictionary app homepage! Our comprehensive dictionary contains over 100,000 words and their definitions. Whether you're looking to expand your vocabulary or simply clarify a word's meaning, our user-friendly interface makes it easy to search and navigate. Additionally, we offer pronunciation guides and examples of each word in context to help you better understand how to use them in conversation. Start exploring our vast collection of words today and discover a whole new world of language!");
-  const [audio, setAudio] = useState()
+  const [meaning, setMeaning] = useState(
+    "Welcome to our dictionary app homepage! Our comprehensive dictionary contains over 100,000 words and their definitions. Whether you're looking to expand your vocabulary or simply clarify a word's meaning, our user-friendly interface makes it easy to search and navigate. Additionally, we offer pronunciation guides and examples of each word in context to help you better understand how to use them in conversation. Start exploring our vast collection of words today and discover a whole new world of language!"
+  );
+  const [audio, setAudio] = useState();
 
   const getMeaning = async () => {
-    let res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
-    let response = await res.json()
-    let meaningText = response[0]["meanings"][0].definitions[0].definition
-   
-    setAudio(response[0]?.phonetics[0]?.audio)
-    setMeaning(meaningText)
-  }
+    let res = await fetch(
+      `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+    );
+    let response = await res.json();
+    console.log(response);
+    let meaningText = response[0]?.meanings[0]?.definitions[0]?.definition;
+
+    setAudio(response[0]?.phonetics[0]?.audio);
+    setMeaning(meaningText);
+  };
 
   useEffect(() => {
     setAudio(null); // reset audio state when word changes
@@ -21,9 +25,9 @@ const Start = () => {
 
   const handleChange = (e) => {
     if (e.target.name === "word") {
-      setWord(e.target.value)
+      setWord(e.target.value);
     }
-  }
+  };
 
   return (
     <div>
@@ -33,14 +37,13 @@ const Start = () => {
             <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">
               {word}
             </h1>
-            <p className="lg:w-2/3 mx-auto leading-relaxed text-base">{meaning}</p>
+            <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
+              {meaning}
+            </p>
           </div>
           <div className="flex lg:w-2/3 w-full flex-col mx-auto px-8 sm:px-0">
             <div className="relative sm:mb-0 flex-grow w-full">
-              <label
-                htmlFor="word"
-                className="leading-7 text-sm text-gray-400"
-              >
+              <label htmlFor="word" className="leading-7 text-sm text-gray-400">
                 Type a word
               </label>
               <input
@@ -52,16 +55,21 @@ const Start = () => {
               />
             </div>
             <div className="my-4 flex justify-between ">
-              <button onClick={getMeaning} className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                Get Meaning
+              <button
+                onClick={getMeaning}
+                className="text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm"
+              >
+                Meaning
               </button>
-              {audio && <div>
-                <audio controls>
-                <source src={audio } type="audio/ogg"/>
-                Your browser doesn't support the audio tag
-                </audio>
-                </div>}
-            </div> 
+              {audio && (
+                <div className="w-full">
+                  <audio controls className="mx-auto w-60 h-10">
+                    <source src={audio} type="audio/ogg" />
+                    Your browser doesn't support the audio tag
+                  </audio>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
